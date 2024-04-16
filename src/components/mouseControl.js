@@ -15,11 +15,21 @@ export function MouseControl(document, renderer, camera, scene) {
         var intersects = raycaster.intersectObjects(scene.children, true);
         if (intersects.length > 0)
         {
-            if (intersects[0].object.name !== "" && !MouseSelectedObj)
+            if (intersects[0].object.name !== "" && MouseSelectedObj == null)
             {
-                MouseSelectedObj = intersects[0].object;
+                MouseSelectedObj = intersects[0].object.parent;
+            }
+            else if (MouseSelectedObj != null)
+            {
+                console.log("Placed!");
+                var pos = intersects[0].point;
+                MouseSelectedObj.position.x = pos.x;
+                MouseSelectedObj.position.z = pos.z;
+                MouseSelectedObj = null;
+
             }
         }
+        
     }
 
     document.addEventListener("mousedown", onDocumentMouseDown, false);

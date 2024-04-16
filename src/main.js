@@ -53,12 +53,10 @@ controls.dampingFactor = 0.05;
 controls.enableDamping = true;
 
 (function () {
-  
-
+  // MOUSE CONTROL
   MouseControl(document, renderer, camera, scene);
 
   
-
   FbxLoader("table", "../assets/table/table.fbx", "../assets/table/texture.jpg", scene, 0, -15, -10, 0.01);
   FbxLoader("lamp", "../assets/lamp/lamp.fbx", "", scene, 0, -15, 10, 0.1);
   renderer.setAnimationLoop(() => {
@@ -77,7 +75,4 @@ controls.enableDamping = true;
 
 
 
-// MOUSE CONTROL
-
-var mouseControl = MouseControl(document, renderer, camera, scene);
 

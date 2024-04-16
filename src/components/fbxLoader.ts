@@ -23,8 +23,8 @@ export function FbxLoader(name, path, texPath, scene, positionx, positiony, posi
                 }
             }
         })
+        object.position.set(positionx, positiony, positionz);
         object.scale.set(scale, scale, scale)
         scene.add(object);
-        object.position.set(positionx, positiony, positionz);
     })
 }

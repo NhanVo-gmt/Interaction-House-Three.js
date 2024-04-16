@@ -2,7 +2,6 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GUI } from 'dat.gui'
 import { MouseControl, MouseSelectedObj } from "./components/mouseControl";
-import { ColorSetter } from "./components/colorSetter";
 import { FloorMeshLoader } from "./components/floorLoader";
 import { GlobalLight } from "./components/globalLight";
 

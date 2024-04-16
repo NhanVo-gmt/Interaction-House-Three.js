@@ -3,6 +3,8 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GUI } from 'dat.gui'
 import { MouseControl, MouseSelectedObj } from "./components/mouseControl";
 import { ColorSetter } from "./components/colorSetter";
+import { FloorMeshLoader } from "./components/floorLoader";
+import { GlobalLight } from "./components/globalLight";
 
 // Create scene and background
 const scene = new THREE.Scene();
@@ -29,11 +31,13 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
 
-
+const light = GlobalLight();
+scene.add(light);
 
 // Create Gui
 const gui = new GUI();
-const lightFolder = gui.addFolder('Light')
+const globallightFolder = gui.addFolder('GlobalLight')
+globallightFolder.add(light, 'intensity', 0, 1);
 // houseFolder.add(HouseControl, 'type', 0, 3);
 
 
@@ -45,6 +49,9 @@ controls.enableDamping = true;
 
 
 (function () {
+
+  var floor = FloorMeshLoader();
+  scene.add(floor)
 
   renderer.setAnimationLoop(() => {
     controls.update();

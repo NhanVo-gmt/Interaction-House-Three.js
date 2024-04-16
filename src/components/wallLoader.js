@@ -1,6 +1,6 @@
 import * as THREE from "three"
 
-export function WallMeshLoader()
+export function WallMeshLoader(height)
 {
     //create the material of the floor (basic material)
     var material_wall = new THREE.MeshPhongMaterial();
@@ -13,7 +13,7 @@ export function WallMeshLoader()
 
     material_wall.normalMap= normal_map;
 
-    var geometry_wall = new THREE.BoxGeometry(30,0.5,30);
+    var geometry_wall = new THREE.BoxGeometry(height,0.5,30);
     var meshWall = new THREE.Mesh( geometry_wall, material_wall );
     meshWall.rotation.x = 1.55;
     meshWall.position.z -= 15;

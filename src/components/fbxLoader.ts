@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader"
 
-export function FbxLoader(name, path, texPath, scene, positionx, positiony, positionz, scale = 0.01)
+export function FbxLoader(name, path, texPath, scene, position, rotation, scale = 0.01)
 {
     const loader = new FBXLoader();
     // loader.load(path, (object) => {
@@ -23,7 +23,8 @@ export function FbxLoader(name, path, texPath, scene, positionx, positiony, posi
                 }
             }
         })
-        object.position.set(positionx, positiony, positionz);
+        object.position.set(position.x, position.y, position.z);
+        object.rotation.set(rotation.x, rotation.y, rotation.z);
         object.scale.set(scale, scale, scale)
         scene.add(object);
     })

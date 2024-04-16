@@ -11,6 +11,7 @@ export class Room
     public roomVar = {
         width: 30,
         length: 30,
+        height: 30,
     }
       
     roomConstant = {
@@ -20,13 +21,18 @@ export class Room
 
     constructor(scene)
     {
-        this.floor = FloorMeshLoader();
+        this.floor = FloorMeshLoader(this.roomVar.width, this.roomVar.length);
         scene.add(this.floor);
 
-        this.walls = WallMeshLoader();
+        this.walls = WallMeshLoader(this.roomVar.height);
         this.walls.forEach((item) => {
             scene.add(item);
         })
+
+        this.roomVar.width = 60;
+        this.roomVar.length = 60;
+
+        this.updateRoom();
     }
 
     public updateRoom() : void

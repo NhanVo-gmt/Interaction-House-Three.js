@@ -1,6 +1,6 @@
 import * as THREE from "three"
 
-export function FloorMeshLoader()
+export function FloorMeshLoader(width, length)
 {
     //create the material of the floor (basic material)
     var material_floor = new THREE.MeshPhongMaterial();
@@ -13,7 +13,7 @@ export function FloorMeshLoader()
 
     material_floor.normalMap = normal_map;
 
-    var geometry_floor = new THREE.BoxGeometry(30,0.5,30);
+    var geometry_floor = new THREE.BoxGeometry(width,0.5,length);
     var meshFloor = new THREE.Mesh( geometry_floor, material_floor );
     meshFloor.position.y -= 15;
     meshFloor.receiveShadow=true;

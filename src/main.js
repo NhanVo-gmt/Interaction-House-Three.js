@@ -4,10 +4,11 @@ import { GUI } from 'dat.gui'
 import { MouseControl, MouseSelectedObj } from "./components/mouseControl";
 import { FloorMeshLoader } from "./components/floorLoader";
 import { GlobalLight } from "./components/globalLight";
+import { WallMeshLoader } from "./components/wallLoader";
 
 // Create scene and background
 const scene = new THREE.Scene();
-scene.background = new THREE.Color("#FFEECC");
+scene.background = new THREE.Color(0.1,0.1,0.1);
 
 // Create camera
 const camera = new THREE.PerspectiveCamera(
@@ -37,7 +38,6 @@ scene.add(light);
 const gui = new GUI();
 const globallightFolder = gui.addFolder('GlobalLight')
 globallightFolder.add(light, 'intensity', 0, 1);
-// houseFolder.add(HouseControl, 'type', 0, 3);
 
 
 // Create control
@@ -50,14 +50,19 @@ controls.enableDamping = true;
 (function () {
 
   var floor = FloorMeshLoader();
-  scene.add(floor)
+  scene.add(floor);
+
+  var walls = WallMeshLoader();
+  walls.forEach((item) => {
+    scene.add(item);
+  })
 
   renderer.setAnimationLoop(() => {
     controls.update();
 
     if (MouseSelectedObj != null)
     {
-      ColorSetter(MouseSelectedObj, HouseControl.color);
+      
     }
 
     renderer.render(scene, camera);

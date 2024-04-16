@@ -5,6 +5,7 @@ import { MouseControl, MouseSelectedObj } from "./components/mouseControl";
 import { FloorMeshLoader } from "./components/floorLoader";
 import { GlobalLight } from "./components/globalLight";
 import { WallMeshLoader } from "./components/wallLoader";
+import { FbxLoader } from "./components/fbxLoader";
 
 // Create scene and background
 const scene = new THREE.Scene();
@@ -36,8 +37,20 @@ scene.add(light);
 
 // Create Gui
 const gui = new GUI();
-const globallightFolder = gui.addFolder('GlobalLight')
-globallightFolder.add(light, 'intensity', 0, 1);
+const roomFolder = gui.addFolder('Room')
+
+let roomVar = {
+  width: 30,
+  length: 30,
+}
+
+const roomConstant = {
+  width: 30,
+  length: 30,
+}
+
+roomFolder.add(roomVar, 'width', 0, 100);
+roomFolder.add(roomVar, 'length', 0, 100);
 
 
 // Create control
@@ -46,19 +59,26 @@ controls.target.set(0, 0, 0);
 controls.dampingFactor = 0.05;
 controls.enableDamping = true;
 
+var floor = FloorMeshLoader();
+scene.add(floor);
+
+var walls = WallMeshLoader();
 
 (function () {
-
-  var floor = FloorMeshLoader();
-  scene.add(floor);
-
-  var walls = WallMeshLoader();
+  
   walls.forEach((item) => {
     scene.add(item);
   })
+  MouseControl(document, renderer, camera, scene);
 
+  
+
+  FbxLoader("table", "../assets/table/table.fbx", "../assets/table/texture.jpg", scene, 0, -15, -10, 0.01);
+  FbxLoader("lamp", "../assets/lamp/lamp.fbx", "", scene, 0, -15, 10, 0.1);
   renderer.setAnimationLoop(() => {
     controls.update();
+
+    updateRoom();
 
     if (MouseSelectedObj != null)
     {
@@ -68,6 +88,20 @@ controls.enableDamping = true;
     renderer.render(scene, camera);
   });
 })();
+
+function updateRoom()
+{
+  floor.scale.x = roomVar.length / roomConstant.length;
+  floor.scale.z = roomVar.width / roomConstant.width;
+
+  
+  walls[0].position.z = -15 - (roomVar.width - roomConstant.width) / 2;
+  walls[0].scale.x = floor.scale.x;
+  walls[1].position.z = 15 + (roomVar.width - roomConstant.width) / 2;
+  walls[1].scale.x = floor.scale.x;
+  walls[2].position.x = 15 + (roomVar.length - roomConstant.length) / 2;
+  walls[2].scale.z = floor.scale.z;
+}
 
 // MOUSE CONTROL
 

@@ -9,12 +9,12 @@ export function FloorMeshLoader()
 
     var normal_map = new THREE.TextureLoader().load('../../assets/floor/floor_normal.jpg');
     normal_map.wrapS = normal_map.wrapT = THREE.RepeatWrapping;
-    normal_map.repeat=new THREE.Vector2(4,4);
+    normal_map.repeat = new THREE.Vector2(4,4);
 
-    material_floor.normalMap= normal_map;
+    material_floor.normalMap = normal_map;
 
     var geometry_floor = new THREE.BoxGeometry(30,0.5,30);
-    var meshFloor= new THREE.Mesh( geometry_floor, material_floor );
+    var meshFloor = new THREE.Mesh( geometry_floor, material_floor );
     meshFloor.position.y -= 15;
     meshFloor.receiveShadow=true;
 

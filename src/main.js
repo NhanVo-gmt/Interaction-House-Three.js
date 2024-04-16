@@ -6,6 +6,7 @@ import { FloorMeshLoader } from "./components/floorLoader";
 import { GlobalLight } from "./components/globalLight";
 import { WallMeshLoader } from "./components/wallLoader";
 import { FbxLoader } from "./components/fbxLoader";
+import { Room } from "./components/room";
 
 // Create scene and background
 const scene = new THREE.Scene();
@@ -38,19 +39,11 @@ scene.add(light);
 // Create Gui
 const gui = new GUI();
 const roomFolder = gui.addFolder('Room')
+const room = new Room(scene);
 
-let roomVar = {
-  width: 30,
-  length: 30,
-}
 
-const roomConstant = {
-  width: 30,
-  length: 30,
-}
-
-roomFolder.add(roomVar, 'width', 0, 100);
-roomFolder.add(roomVar, 'length', 0, 100);
+roomFolder.add(room.roomVar, 'width', 0, 100);
+roomFolder.add(room.roomVar, 'length', 0, 100);
 
 
 // Create control
@@ -59,16 +52,9 @@ controls.target.set(0, 0, 0);
 controls.dampingFactor = 0.05;
 controls.enableDamping = true;
 
-var floor = FloorMeshLoader();
-scene.add(floor);
-
-var walls = WallMeshLoader();
-
 (function () {
   
-  walls.forEach((item) => {
-    scene.add(item);
-  })
+
   MouseControl(document, renderer, camera, scene);
 
   
@@ -78,7 +64,7 @@ var walls = WallMeshLoader();
   renderer.setAnimationLoop(() => {
     controls.update();
 
-    updateRoom();
+    room.updateRoom();
 
     if (MouseSelectedObj != null)
     {
@@ -89,19 +75,7 @@ var walls = WallMeshLoader();
   });
 })();
 
-function updateRoom()
-{
-  floor.scale.x = roomVar.length / roomConstant.length;
-  floor.scale.z = roomVar.width / roomConstant.width;
 
-  
-  walls[0].position.z = -15 - (roomVar.width - roomConstant.width) / 2;
-  walls[0].scale.x = floor.scale.x;
-  walls[1].position.z = 15 + (roomVar.width - roomConstant.width) / 2;
-  walls[1].scale.x = floor.scale.x;
-  walls[2].position.x = 15 + (roomVar.length - roomConstant.length) / 2;
-  walls[2].scale.z = floor.scale.z;
-}
 
 // MOUSE CONTROL
 

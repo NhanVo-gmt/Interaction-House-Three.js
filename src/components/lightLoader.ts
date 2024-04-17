@@ -17,7 +17,8 @@ export function LightLoader(lightName, position, parent, target, scene)
 
     if (parent != null)
     {
-        light.position.set(position.x, position.y, position.z)
+        light.position.set(position.x, position.y, position.z);
+        light.target = target;
         light.parent = parent;
 
     }

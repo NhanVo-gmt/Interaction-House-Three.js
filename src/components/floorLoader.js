@@ -18,5 +18,7 @@ export function FloorMeshLoader(width, length)
     meshFloor.position.y -= 15;
     meshFloor.receiveShadow=true;
 
+    meshFloor.name = "floor";
+
     return meshFloor;
 }

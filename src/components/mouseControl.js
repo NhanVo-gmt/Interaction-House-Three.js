@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 
 export var MouseSelectedObj = null;
+var MouseSelectedObjName = "";
 
 export function MouseControl(document, renderer, camera, scene) {
     var raycaster = new THREE.Raycaster();
@@ -16,8 +17,9 @@ export function MouseControl(document, renderer, camera, scene) {
         var intersects = raycaster.intersectObjects(scene.children, true);
         if (intersects.length > 0)
         {
-            if (intersects[0].object.name !== "" && MouseSelectedObj == null)
+            if (intersects[0].object.name !== "floor" && MouseSelectedObj == null)
             {
+                MouseSelectedObjName = intersects[0].object.name;
                 MouseSelectedObj = intersects[0].object.parent;
             }
             else if (MouseSelectedObj != null)
@@ -25,7 +27,7 @@ export function MouseControl(document, renderer, camera, scene) {
                 console.log("Placed!");
                 
                 MouseSelectedObj = null;
-
+                MouseSelectedObjName = "";
             }
         }
         
@@ -39,11 +41,22 @@ export function MouseControl(document, renderer, camera, scene) {
 
         raycaster.setFromCamera(mouse, camera);
         var intersects = raycaster.intersectObjects(scene.children, true);
-        if (MouseSelectedObj != null)
+        if (intersects.length > 0)
         {
-            var pos = intersects[0].point;
-            MouseSelectedObj.position.x = pos.x;
-            MouseSelectedObj.position.z = pos.z;
+            if (MouseSelectedObj != null)
+            {
+                var curIndex = 0;
+                while (intersects[curIndex].object.name == MouseSelectedObjName)
+                {
+                    curIndex++;
+                    if (curIndex >= intersects.length) return;
+                }
+
+                var pos = intersects[curIndex].point;
+                MouseSelectedObj.position.x = pos.x;
+                MouseSelectedObj.position.y = pos.y;
+                MouseSelectedObj.position.z = pos.z;
+            }
         }
     }
 

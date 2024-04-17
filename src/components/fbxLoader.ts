@@ -1,7 +1,8 @@
 import * as THREE from 'three'
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader"
+import { LightLoader } from './lightLoader';
 
-export function FbxLoader(name, path, texPath, scene, position, rotation, scale = 0.01)
+export function FbxLoader(name, path, texPath, scene, position, rotation, scale = 0.01, light = "")
 {
     const loader = new FBXLoader();
     // loader.load(path, (object) => {
@@ -25,7 +26,12 @@ export function FbxLoader(name, path, texPath, scene, position, rotation, scale 
         })
         object.position.set(position.x, position.y, position.z);
         object.rotation.set(rotation.x, rotation.y, rotation.z);
-        object.scale.set(scale, scale, scale)
+        object.scale.set(scale, scale, scale);
+        if (light !== "")
+        {
+            object.children.push(LightLoader("hello", new THREE.Vector3(0,0,0), object, scene));
+        }
         scene.add(object);
     })
 }
+

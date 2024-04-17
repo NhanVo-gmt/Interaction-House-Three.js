@@ -41,9 +41,9 @@ const gui = new GUI();
 const roomFolder = gui.addFolder('Room')
 const room = new Room(scene);
 
-
 roomFolder.add(room.roomVar, 'width', 0, 100);
 roomFolder.add(room.roomVar, 'length', 0, 100);
+roomFolder.add(light, 'intensity', 0, 1);
 
 
 // Create control
@@ -57,9 +57,6 @@ controls.enableDamping = true;
   MouseControl(document, renderer, camera, scene);
 
   
-  FbxLoader("table", "../assets/table/table.fbx", "../assets/table/texture.jpg", scene, new THREE.Vector3(-4, -15, -10), new THREE.Vector3(0, 0, 0), 0.01);
-  FbxLoader("lamp", "../assets/lamp/lamp.fbx", "", scene, new THREE.Vector3(-4, -15, 10), new THREE.Vector3(0, 0, 0), 0.1);
-  FbxLoader("sofa", "../assets/sofa/sofa.fbx", "../assets/sofa/texture.jpg", scene, new THREE.Vector3(10, -15, 0), new THREE.Vector3(0, 4.65, 0), 0.1);
   renderer.setAnimationLoop(() => {
     controls.update();
 

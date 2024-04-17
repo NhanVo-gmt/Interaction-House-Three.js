@@ -10,8 +10,10 @@ export function WallMeshLoader(height)
     var normal_map = new THREE.TextureLoader().load('../../assets/wall/wall_normal.jpg');
     normal_map.wrapS = normal_map.wrapT = THREE.RepeatWrapping;
     normal_map.repeat = new THREE.Vector2(4,4);
+    material_wall.normalMap = normal_map;
 
-    material_wall.normalMap= normal_map;
+    var ao_map = new THREE.TextureLoader().load('../../assets/wall/wall_ao.jpg');
+    material_wall.aoMap = ao_map;
 
     var geometry_wall = new THREE.BoxGeometry(height,0.5,30);
     var meshWall = new THREE.Mesh( geometry_wall, material_wall );

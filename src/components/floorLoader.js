@@ -10,8 +10,10 @@ export function FloorMeshLoader(width, length)
     var normal_map = new THREE.TextureLoader().load('../../assets/floor/floor_normal.jpg');
     normal_map.wrapS = normal_map.wrapT = THREE.RepeatWrapping;
     normal_map.repeat = new THREE.Vector2(4,4);
-
     material_floor.normalMap = normal_map;
+
+    var ao_map = new THREE.TextureLoader().load('../../assets/floor/floor_ao.jpg');
+    material_floor.aoMap = ao_map;
 
     var geometry_floor = new THREE.BoxGeometry(width,0.5,length);
     var meshFloor = new THREE.Mesh( geometry_floor, material_floor );

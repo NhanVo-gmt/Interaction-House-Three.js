@@ -24,13 +24,21 @@ export function FbxLoader(name, path, texPath, scene, position, rotation, scale 
                 }
             }
         })
-        object.position.set(position.x, position.y, position.z);
-        object.rotation.set(rotation.x, rotation.y, rotation.z);
+        
         object.scale.set(scale, scale, scale);
         if (light !== "")
         {
-            object.children.push(LightLoader("hello", new THREE.Vector3(0,0,0), object, scene));
+            let target = new THREE.Object3D(0, 0, 0);
+            target.parent = object;
+            object.children.push(target);
+            target.position.set(-100, 0, 0);
+
+            object.children.push(LightLoader("hello", new THREE.Vector3(0,10,0), object, target, scene));
+            console.log(object.children);
         }
+
+        object.position.set(position.x, position.y, position.z);
+        object.rotation.set(rotation.x, rotation.y, rotation.z);
         scene.add(object);
     })
 }

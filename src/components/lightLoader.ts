@@ -1,6 +1,6 @@
 import * as THREE from "three"
 
-export function LightLoader(lightName, position, parent, scene)
+export function LightLoader(lightName, position, parent, target, scene)
 {
     const light = new THREE.SpotLight(new THREE.Color('#f5d862'));
 
@@ -17,8 +17,9 @@ export function LightLoader(lightName, position, parent, scene)
 
     if (parent != null)
     {
+        light.position.set(position.x, position.y, position.z)
         light.parent = parent;
-        light.position.set(position.x, position.y, position.z);
+
     }
 
 

@@ -60,6 +60,23 @@ export function MouseControl(document, renderer, camera, scene) {
         }
     }
 
+    function onKeyPress(event)
+    {
+        if (MouseSelectedObj != null)
+        {
+            switch (event.keyCode) 
+            {
+                case 97:
+                    MouseSelectedObj.rotation.y += Math.PI / 20;
+                    return;
+                case 100:
+                    MouseSelectedObj.rotation.y -= Math.PI / 20;
+                    return;
+            }
+        }
+    }
+
     document.addEventListener("mousemove", onDocumentMouseMove, false);
     document.addEventListener("mousedown", onDocumentMouseDown, false);
+    document.addEventListener("keypress", onKeyPress, false);
 }

@@ -22,9 +22,10 @@ export class Room
 
     objectVar = [
         {name: "table", model: "../assets/table/table.fbx", tex: "../assets/table/texture.jpg", scale: 0.01, light: ""},
+        {name: "table1", model: "../assets/table1/table1.fbx", tex: "../assets/table1/texture.jpg", scale: 0.06, light: ""},
         {name: "lamp", model: "../assets/lamp/lamp.fbx", tex: "", scale: 0.1, light: "spot"},
         {name: "sofa", model: "../assets/sofa/sofa.fbx", tex: "../assets/sofa/texture.jpg", scale: 0.1, light: ""},
-        {name: "ball", model: "../assets/ball/ball.fbx", tex: "../assets/ball/texture.jpg", scale: 0.1, light: ""}
+        {name: "ball", model: "../assets/ball/ball.fbx", tex: "../assets/ball/texture.jpg", scale: 0.1, light: ""},
     ]
 
     constructor(scene)

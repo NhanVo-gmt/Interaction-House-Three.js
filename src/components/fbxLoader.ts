@@ -14,6 +14,9 @@ export function FbxLoader(name, path, texPath, scene, position, rotation, scale 
         object.traverse(function (child) {
             if ((child as THREE.Mesh).isMesh) {
                 child.name = name;
+                child.castShadow = true;
+                child.receiveShadow = true;
+                
                 if ((child as THREE.Mesh).material) {
                     
                     if (texPath !== "")
